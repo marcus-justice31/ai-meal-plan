@@ -1,3 +1,74 @@
-Blue threads the morning with quiet light
-The sea wears it like a patient horizon
-In every glance, blue keeps the sky within reach
+{
+  "week": [
+    {
+      "day": "Monday",
+      "meals": [
+        {"name": "Breakfast: 4 eggs, dairy-free toast, avocado", "calories": 540, "protein": 30, "carbs": 32, "fat": 33},
+        {"name": "Lunch: Chicken + quinoa + brown rice + veggies + olive oil", "calories": 988, "protein": 75, "carbs": 98, "fat": 23},
+        {"name": "Dinner: Salmon, sweet potato, broccoli", "calories": 687, "protein": 54, "carbs": 51, "fat": 24}
+      ],
+      "totalDailyCalories": 2215,
+      "totalDailyMacros": {"protein": 159, "carbs": 181, "fat": 80}
+    },
+    {
+      "day": "Tuesday",
+      "meals": [
+        {"name": "Breakfast: 3 eggs scramble, dairy-free yogurt + berries (unsweetened)", "calories": 520, "protein": 28, "carbs": 28, "fat": 30},
+        {"name": "Lunch: Turkey breast, quinoa, roasted vegetables, olive oil", "calories": 970, "protein": 80, "carbs": 95, "fat": 23},
+        {"name": "Dinner: Cod fillet, potatoes, green beans, olive oil", "calories": 720, "protein": 60, "carbs": 60, "fat": 26}
+      ],
+      "totalDailyCalories": 2210,
+      "totalDailyMacros": {"protein": 168, "carbs": 183, "fat": 79}
+    },
+    {
+      "day": "Wednesday",
+      "meals": [
+        {"name": "Breakfast: Tofu scramble with veggies, dairy-free toast", "calories": 520, "protein": 32, "carbs": 34, "fat": 28},
+        {"name": "Lunch: Chicken thigh, brown rice, chickpeas, spinach, olive oil", "calories": 990, "protein": 72, "carbs": 105, "fat": 32},
+        {"name": "Dinner: Shrimp stir-fry with rice noodles and veggies (no dairy)", "calories": 710, "protein": 58, "carbs": 60, "fat": 26}
+      ],
+      "totalDailyCalories": 2220,
+      "totalDailyMacros": {"protein": 162, "carbs": 199, "fat": 86}
+    },
+    {
+      "day": "Thursday",
+      "meals": [
+        {"name": "Breakfast: Omelet (4 eggs) with mushrooms, dairy-free bread", "calories": 550, "protein": 32, "carbs": 28, "fat": 34},
+        {"name": "Lunch: Grilled salmon, quinoa, roasted broccoli, olive oil", "calories": 1000, "protein": 70, "carbs": 95, "fat": 38},
+        {"name": "Dinner: Lean beef steak, baked potato, asparagus", "calories": 650, "protein": 60, "carbs": 50, "fat": 26}
+      ],
+      "totalDailyCalories": 2200,
+      "totalDailyMacros": {"protein": 162, "carbs": 173, "fat": 98}
+    },
+    {
+      "day": "Friday",
+      "meals": [
+        {"name": "Breakfast: Egg white + 2 whole eggs omelet, dairy-free toast", "calories": 520, "protein": 34, "carbs": 28, "fat": 28},
+        {"name": "Lunch: Turkey chili with beans, brown rice", "calories": 970, "protein": 78, "carbs": 98, "fat": 24},
+        {"name": "Dinner: grilled tuna, sweet potato, green peas", "calories": 690, "protein": 58, "carbs": 60, "fat": 22}
+      ],
+      "totalDailyCalories": 2180,
+      "totalDailyMacros": {"protein": 170, "carbs": 186, "fat": 74}
+    },
+    {
+      "day": "Saturday",
+      "meals": [
+        {"name": "Breakfast: Chia pudding with almond milk, nuts, berries", "calories": 520, "protein": 24, "carbs": 48, "fat": 28},
+        {"name": "Lunch: Chicken breast, farro, tomato-cucumber salad, olive oil", "calories": 930, "protein": 72, "carbs": 90, "fat": 28},
+        {"name": "Dinner: Baked cod, quinoa, roasted zucchini", "calories": 730, "protein": 58, "carbs": 60, "fat": 26}
+      ],
+      "totalDailyCalories": 2180,
+      "totalDailyMacros": {"protein": 154, "carbs": 198, "fat": 82}
+    },
+    {
+      "day": "Sunday",
+      "meals": [
+        {"name": "Breakfast: Smoothie with pea protein, spinach, banana, almond milk", "calories": 470, "protein": 35, "carbs": 60, "fat": 8},
+        {"name": "Lunch: Shrimp and lentil salad with olive oil vinaigrette, quinoa", "calories": 990, "protein": 70, "carbs": 120, "fat": 20},
+        {"name": "Dinner: Turkey meatballs, gluten-free pasta, marinara sauce, steamed broccoli", "calories": 700, "protein": 60, "carbs": 70, "fat": 22}
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {"protein": 165, "carbs": 250, "fat": 50}
+    }
+  ]
+}
