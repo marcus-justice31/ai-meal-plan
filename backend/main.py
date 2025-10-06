@@ -5,23 +5,29 @@ from pymongo import MongoClient
 from pydantic import BaseModel, Field
 from datetime import date
 from typing import List
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Request
 
+app = FastAPI()
+
+#------ OpenAI API connection ------#
 load_dotenv()
 
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-## MongoDB connection uri ##
+#------ MongoDB connection uri ------#
 uri = "mongodb+srv://marcusjusticeuy_db_user:cMGtsvEm2S450XEG@ai-meal-plan.roiylcu.mongodb.net/?retryWrites=true&w=majority&appName=Ai-Meal-Plan"
 client = MongoClient(uri)
 
-## Database and collections ##
+#------ Database and collections ------#
 db = client.meals_db
 user_collection = db["users"]
 meals_collection = db["meals"]
 
-# User model for login and user creation
+#------ User Model ------#
 class User(BaseModel):
     username: str
     password: str
@@ -30,6 +36,49 @@ class User(BaseModel):
     height_cm: int
     weight_kg: int
     dietary_restrictions: List[str] = Field(default_factory=lambda: ['none']) # makes it so that it is not shared and mutable
+
+
+
+#------ Add CORS middleware ------#
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, PUT, DELETE)
+    allow_headers=["*"],  # Allows all headers
+)
+
+#-------- USER APIs --------#
+@app.get("/user/login")
+def login(username: str, pswd: str):
+    # Find the user by username in MongoDB
+    user = user_collection.find_one({"username": username})
+    
+    if user:
+        if user["password"] == pswd:
+            return {"Login": "Successful"}
+        else:
+            raise HTTPException(status_code=400, detail="Invalid password")
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+@app.post("/user/create")
+def createUser(username: str, password: str, gender: str, birthday: str, height_cm: int, weight_kg: int, dietary_restrictions: List[str]):
+    # Check if the user already exists
+    existing_user = user_collection.find_one({"username": username})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    # Create a user instance with default wallet and reserved_spots values
+    new_user = User(username=username, password=password, gender=gender, birthday=birthday, height_cm=height_cm, weight_kg=weight_kg, dietary_restrictions=dietary_restrictions)
+    
+    # Insert the new user into MongoDB
+    user_collection.insert_one(new_user.model_dump())
+    
+    return {"message": "User created successfully"}
+
+
+
 
 
 
