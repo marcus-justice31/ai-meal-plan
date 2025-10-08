@@ -5,6 +5,8 @@ from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
+from fastapi import Body
+from datetime import datetime
 
 app = FastAPI()
 
@@ -32,10 +34,10 @@ class User(BaseModel):
 #------ Add CORS middleware ------#
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods (GET, POST, PUT, DELETE)
-    allow_headers=["*"],  # Allows all headers
+    allow_headers=["*"],  
 )
 
 #-------- USER APIs --------#
@@ -53,21 +55,28 @@ def login(username: str, pswd: str):
         raise HTTPException(status_code=404, detail="User not found")
 
 @app.post("/user/create")
-def createUser(username: str, password: str, gender: str, birthday: str, height_cm: int, weight_kg: int, dietary_restrictions: List[str]):
+def createUser(new_user: User = Body(...)):
     # Check if the user already exists
-    existing_user = user_collection.find_one({"username": username})
+    existing_user = user_collection.find_one({"username": new_user.username})
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
     
-    # Create a user instance with default wallet and reserved_spots values
-    new_user = User(username=username, password=password, gender=gender, birthday=birthday, height_cm=height_cm, weight_kg=weight_kg, dietary_restrictions=dietary_restrictions)
+    # new_user = User(
+    #             username=username, 
+    #             password=password, 
+    #             gender=gender, 
+    #             birthday=birthday, 
+    #             height_cm=height_cm, 
+    #             weight_kg=weight_kg, 
+    #             dietary_restrictions=dietary_restrictions
+    #         )
     
     # Insert the new user into MongoDB
     user_collection.insert_one(new_user.model_dump())
     
-    return {"message": "User created successfully"}
+    return {"message": "Successful"}
 
-@app.get("user/{username}/generate_meal_plan")
+@app.get("/user/{username}/generate_meal_plan")
 def generate_meal_plan(username: str, gender: str, height_cm: int, weight_kg: int, dietary_restrictions: List[str]):
     user = user_collection.find_one({"username": username})
 
@@ -75,13 +84,15 @@ def generate_meal_plan(username: str, gender: str, height_cm: int, weight_kg: in
 
 
 
-# Create new user
-new_user = User(username="username", password="password", gender="male", birthday="2003-1-31", height_cm=175, weight_kg=75, dietary_restrictions=['none'])
+# # Create new user
+# new_user = User(username="username", password="password", gender="male", birthday="2003-1-31", height_cm=175, weight_kg=75, dietary_restrictions=['none'])
 
-# Insert new user into MongoDB
-user_collection.insert_one(new_user.model_dump())
+# # Insert new user into MongoDB
+# user_collection.insert_one(new_user.model_dump())
 
-print("user created successfully")
+# print("user created successfully")
 
 
-
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
