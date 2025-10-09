@@ -33,6 +33,12 @@ class User(BaseModel):
     weight_kg: int
     dietary_restrictions: List[str] = Field(default_factory=lambda: ['none']) # makes it so that it is not shared and mutable
 
+#------ Meals Model ------#
+class Meals(BaseModel):
+    username: str
+    meal_plan: str
+    creation_date: datetime = Field(default_factory=datetime.now)
+    
 #------ Request Models ------#
 class LoginRequest(BaseModel):
     username: str
@@ -77,6 +83,14 @@ def calculateBMI(username: str):
         return BMI
     else:
         raise HTTPException(status_code=404, detail="User not found")
+    
+def saveMealPlanToDB(username: str, api_response: str):
+    meal = Meals(
+            username=username, 
+            meal_plan=api_response,
+            creation_date=datetime.now()    
+        )
+    meals_collection.insert_one(meal.model_dump())
 
 #-------- USER APIs --------#
 @app.post("/user/login")
@@ -111,8 +125,8 @@ def generate_meal_plan(username: str, request: MealPlanRequest):
         age = calculateAge(username)
         BMI = calculateBMI(username)
 
+        # Loading the api key thing
         load_dotenv()
-
         openai_client = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -160,8 +174,7 @@ def generate_meal_plan(username: str, request: MealPlanRequest):
             input=str(prompt_input)
         )
 
-        with open("testWrite2.txt", "a") as file:
-            file.write(response.output_text)
+        saveMealPlanToDB(username, response.output_text)
 
     else:
         raise HTTPException(status_code=404, detail="User not found")
