@@ -8,6 +8,10 @@ from fastapi import Request
 from fastapi import Body
 from datetime import datetime
 
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
 app = FastAPI()
 
 #------ MongoDB connection uri ------#
@@ -54,6 +58,18 @@ def calculateAge(username: str):
     else:
         raise HTTPException(status_code=404, detail="User not found")
 
+def calculateBMI(username: str):
+    user = user_collection.find_one({"username": username})
+    if user:
+        weight_kg = user["weight_kg"]
+        height_m = user["height_cm"] / 100
+
+        BMI = weight_kg / (height_m ** 2)
+
+        return BMI
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
 #-------- USER APIs --------#
 @app.get("/user/login")
 def login(username: str, pswd: str):
@@ -83,8 +99,67 @@ def createUser(new_user: User = Body(...)): # expects the data in the request bo
 @app.get("/user/{username}/generate_meal_plan")
 def generate_meal_plan(username: str):
     user = user_collection.find_one({"username": username})
-    age = calculateAge(username)
-    
+    if user:
+        age = calculateAge(username)
+        BMI = calculateBMI(username)
+
+        load_dotenv()
+
+        openai_client = OpenAI(
+            api_key=os.getenv("OPENAI_API_KEY")
+        )
+
+        prompt_input = {
+            "task": "weekly_meal_plan",
+            "inputs": {
+                "gender": user["gender"],
+                "age": age,
+                "height_cm": user["height_cm"],
+                "weight_kg": user["weight_kg"],
+                # "body_fat_percent": body_fat_percentage,
+                "BMI": BMI,
+                # "activity_level": activity_level,
+                # "goal": goal,
+                "preferences": {
+                "diet_type": "high protein",
+                "restrictions": user["dietary_restrictions"],
+                "meals_per_day": 3
+                }
+            }
+        }
+
+        instructions = """
+                You are a certified nutritionist and meal planner AI.
+
+                1. Calculate the user's estimated maintenance calories and macronutrient targets.
+                2. Adjust the plan for their goal (e.g., calorie deficit for cutting).
+                3. Create a balanced 7-day meal plan following their restrictions and meals per day.
+                4. Return the result in valid JSON format.
+
+                Output JSON:
+                {
+                "macroTargets": {"calories": int, "protein_g": int, "carbs_g": int, "fat_g": int},
+                "week": [
+                    {"day": "Monday", "meals": [{"name": str, "calories": int, "protein": int, "carbs": int, "fat": int}],
+                    "totalDailyCalories": int, "totalDailyMacros": {"protein": int, "carbs": int, "fat": int}}
+                ]
+                }
+                """
+        
+        response = openai_client.responses.create(
+            model="gpt-5-nano",
+            reasoning={"effort": "low"},
+            instructions=instructions,
+            input=str(prompt_input)
+        )
+
+        with open("testWrite2.txt", "a") as file:
+            file.write(response.output_text)
+
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
 
     return {"message": "Meal plan generated successfully"}
 
