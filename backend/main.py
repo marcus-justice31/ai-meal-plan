@@ -39,6 +39,20 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods (GET, POST, PUT, DELETE)
     allow_headers=["*"],  
 )
+#------ Functions ------#
+def calculateAge(username: str):
+    user = user_collection.find_one({"username": username})
+    if user:
+        birthday_str = user["birthday"]
+
+        birthday_date = datetime.strptime(birthday_str, "%Y-%m-%d").date() # convert string to datetime.date
+
+        today = date.today()
+        age = today.year - birthday_date.year - ((today.month, today.day) < (birthday_date.month, birthday_date.day))
+
+        return age
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
 
 #-------- USER APIs --------#
 @app.get("/user/login")
@@ -55,21 +69,11 @@ def login(username: str, pswd: str):
         raise HTTPException(status_code=404, detail="User not found")
 
 @app.post("/user/create")
-def createUser(new_user: User = Body(...)):
+def createUser(new_user: User = Body(...)): # expects the data in the request body as JSON (because I created a pydantic User class already)
     # Check if the user already exists
     existing_user = user_collection.find_one({"username": new_user.username})
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
-    
-    # new_user = User(
-    #             username=username, 
-    #             password=password, 
-    #             gender=gender, 
-    #             birthday=birthday, 
-    #             height_cm=height_cm, 
-    #             weight_kg=weight_kg, 
-    #             dietary_restrictions=dietary_restrictions
-    #         )
     
     # Insert the new user into MongoDB
     user_collection.insert_one(new_user.model_dump())
@@ -77,8 +81,10 @@ def createUser(new_user: User = Body(...)):
     return {"message": "Successful"}
 
 @app.get("/user/{username}/generate_meal_plan")
-def generate_meal_plan(username: str, gender: str, height_cm: int, weight_kg: int, dietary_restrictions: List[str]):
+def generate_meal_plan(username: str):
     user = user_collection.find_one({"username": username})
+    age = calculateAge(username)
+    
 
     return {"message": "Meal plan generated successfully"}
 
