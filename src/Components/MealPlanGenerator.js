@@ -8,11 +8,13 @@ const MealPlanGenerator = () => {
     const [goal, setGoal] = useState('');
     
 const handleMealGeneration = async (e) => {
-    try {
-        const response = await axios.post(`http://localhost:8000/user/create`)
-    } catch (err) {
-        alert('Error')
-    }
+    // e.preventDefault();
+    // try {
+    //     const response = await axios.post(`http://localhost:8000/user/${username}/generate_meal_plan`)
+
+    // } catch (err) {
+    //     alert('Error')
+    // }
 
 }
 

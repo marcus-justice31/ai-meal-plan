@@ -33,6 +33,9 @@ class User(BaseModel):
     weight_kg: int
     dietary_restrictions: List[str] = Field(default_factory=lambda: ['none']) # makes it so that it is not shared and mutable
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 
 #------ Add CORS middleware ------#
@@ -71,13 +74,13 @@ def calculateBMI(username: str):
         raise HTTPException(status_code=404, detail="User not found")
 
 #-------- USER APIs --------#
-@app.get("/user/login")
-def login(username: str, pswd: str):
+@app.post("/user/login")
+def login(request: LoginRequest):
     # Find the user by username in MongoDB
-    user = user_collection.find_one({"username": username})
+    user = user_collection.find_one({"username": request.username})
     
     if user:
-        if user["password"] == pswd:
+        if user["password"] == request.password:
             return {"Login": "Successful"}
         else:
             raise HTTPException(status_code=400, detail="Invalid password")
@@ -97,7 +100,7 @@ def createUser(new_user: User = Body(...)): # expects the data in the request bo
     return {"message": "Successful"}
 
 @app.get("/user/{username}/generate_meal_plan")
-def generate_meal_plan(username: str):
+def generate_meal_plan(username: str, goal: str, ):
     user = user_collection.find_one({"username": username})
     if user:
         age = calculateAge(username)

@@ -19,7 +19,10 @@ const handleLogin = async (e) => {
     e.preventDefault();
     try {
         // Attempt login via FastAPI endpoint
-        const response = await axios.get(`http://localhost:8000/user/login?username=${username}&pswd=${password}`);
+        const response = await axios.post(`http://localhost:8000/user/login`, {
+            username,
+            password
+        });
         if (response.data.Login === "Successful") {
             setError(null);
             alert('Login successful!');
