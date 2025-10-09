@@ -26,7 +26,7 @@ const handleLogin = async (e) => {
         if (response.data.Login === "Successful") {
             setError(null);
             alert('Login successful!');
-            navigate('/mealPlanGenerator');
+            navigate('/mealPlanGenerator',  { state: { username } });
         }
     } catch (err) {
         // Handle error from FastAPI (invalid credentials)

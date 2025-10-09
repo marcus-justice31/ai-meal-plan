@@ -1,0 +1,467 @@
+{
+  "macroTargets": {
+    "calories": 2160,
+    "protein_g": 140,
+    "carbs_g": 265,
+    "fat_g": 60
+  },
+  "week": [
+    {
+      "day": "Monday",
+      "meals": [
+        {
+          "name": "Breakfast: Egg white omelette with spinach, feta and oats",
+          "calories": 520,
+          "protein": 40,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Grilled chicken breast, quinoa, roasted vegetables",
+          "calories": 800,
+          "protein": 50,
+          "carbs": 85,
+          "fat": 18
+        },
+        {
+          "name": "Dinner: Baked salmon, sweet potato, green beans",
+          "calories": 840,
+          "protein": 50,
+          "carbs": 120,
+          "fat": 28
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Tuesday",
+      "meals": [
+        {
+          "name": "Breakfast: Greek yogurt bowl with berries and granola",
+          "calories": 520,
+          "protein": 38,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Turkey breast wrap with avocado and mixed greens",
+          "calories": 800,
+          "protein": 48,
+          "carbs": 85,
+          "fat": 22
+        },
+        {
+          "name": "Dinner: Lean beef stir-fry with brown rice and broccoli",
+          "calories": 840,
+          "protein": 54,
+          "carbs": 120,
+          "fat": 24
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Wednesday",
+      "meals": [
+        {
+          "name": "Breakfast: Protein smoothie with milk, banana and spinach",
+          "calories": 520,
+          "protein": 40,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Tuna quinoa salad with chickpeas and veggies",
+          "calories": 800,
+          "protein": 48,
+          "carbs": 85,
+          "fat": 18
+        },
+        {
+          "name": "Dinner: Grilled chicken thighs, roasted potatoes, asparagus",
+          "calories": 840,
+          "protein": 52,
+          "carbs": 120,
+          "fat": 24
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Thursday",
+      "meals": [
+        {
+          "name": "Breakfast: Scrambled eggs with turkey bacon and whole-grain toast",
+          "calories": 520,
+          "protein": 38,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Shrimp bowl with brown rice and avocado",
+          "calories": 800,
+          "protein": 50,
+          "carbs": 85,
+          "fat": 20
+        },
+        {
+          "name": "Dinner: Turkey meatballs with whole-wheat pasta and tomato sauce",
+          "calories": 840,
+          "protein": 52,
+          "carbs": 120,
+          "fat": 26
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Friday",
+      "meals": [
+        {
+          "name": "Breakfast: Cottage cheese with pineapple and almonds",
+          "calories": 520,
+          "protein": 40,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Grilled salmon salad with quinoa and olive oil dressing",
+          "calories": 800,
+          "protein": 50,
+          "carbs": 85,
+          "fat": 22
+        },
+        {
+          "name": "Dinner: Lean pork loin, mashed potatoes, steamed spinach",
+          "calories": 840,
+          "protein": 50,
+          "carbs": 120,
+          "fat": 24
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Saturday",
+      "meals": [
+        {
+          "name": "Breakfast: Protein pancakes with peanut butter",
+          "calories": 520,
+          "protein": 40,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Chicken bust bowl with farro and roasted veggies",
+          "calories": 800,
+          "protein": 52,
+          "carbs": 85,
+          "fat": 18
+        },
+        {
+          "name": "Dinner: Cod with wild rice and sautéed mushrooms",
+          "calories": 840,
+          "protein": 48,
+          "carbs": 120,
+          "fat": 28
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    },
+    {
+      "day": "Sunday",
+      "meals": [
+        {
+          "name": "Breakfast: Greek yogurt parfait with granola and chia seeds",
+          "calories": 520,
+          "protein": 38,
+          "carbs": 60,
+          "fat": 14
+        },
+        {
+          "name": "Lunch: Beef and vegetable kebabs with couscous",
+          "calories": 800,
+          "protein": 50,
+          "carbs": 85,
+          "fat": 18
+        },
+        {
+          "name": "Dinner: Roast chicken, baked potato, green peas",
+          "calories": 840,
+          "protein": 52,
+          "carbs": 120,
+          "fat": 28
+        }
+      ],
+      "totalDailyCalories": 2160,
+      "totalDailyMacros": {
+        "protein": 140,
+        "carbs": 265,
+        "fat": 60
+      }
+    }
+  ]
+}{
+  "macroTargets": {
+    "calories": 2365,
+    "protein_g": 165,
+    "carbs_g": 274,
+    "fat_g": 68
+  },
+  "week": [
+    {
+      "day": "Monday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Tuesday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Wednesday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Thursday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Friday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Saturday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    },
+    {
+      "day": "Sunday",
+      "meals": [
+        {
+          "name": "Breakfast: high-protein yogurt bowl with oats",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Lunch: grilled chicken, quinoa, and mixed vegetables",
+          "calories": 780,
+          "protein": 55,
+          "carbs": 85,
+          "fat": 25
+        },
+        {
+          "name": "Dinner: baked salmon, sweet potato, and broccoli",
+          "calories": 805,
+          "protein": 55,
+          "carbs": 104,
+          "fat": 18
+        }
+      ],
+      "totalDailyCalories": 2365,
+      "totalDailyMacros": {
+        "protein": 165,
+        "carbs": 274,
+        "fat": 68
+      }
+    }
+  ]
+}

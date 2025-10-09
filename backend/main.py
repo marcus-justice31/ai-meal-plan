@@ -33,10 +33,15 @@ class User(BaseModel):
     weight_kg: int
     dietary_restrictions: List[str] = Field(default_factory=lambda: ['none']) # makes it so that it is not shared and mutable
 
+#------ Request Models ------#
 class LoginRequest(BaseModel):
     username: str
     password: str
 
+class MealPlanRequest(BaseModel):
+    activity_level: str
+    goal: str
+    meals_per_day: int = 3
 
 #------ Add CORS middleware ------#
 app.add_middleware(
@@ -99,8 +104,8 @@ def createUser(new_user: User = Body(...)): # expects the data in the request bo
     
     return {"message": "Successful"}
 
-@app.get("/user/{username}/generate_meal_plan")
-def generate_meal_plan(username: str, goal: str, ):
+@app.post("/user/{username}/generate_meal_plan")
+def generate_meal_plan(username: str, request: MealPlanRequest):
     user = user_collection.find_one({"username": username})
     if user:
         age = calculateAge(username)
@@ -119,14 +124,13 @@ def generate_meal_plan(username: str, goal: str, ):
                 "age": age,
                 "height_cm": user["height_cm"],
                 "weight_kg": user["weight_kg"],
-                # "body_fat_percent": body_fat_percentage,
                 "BMI": BMI,
-                # "activity_level": activity_level,
-                # "goal": goal,
+                "activity_level": request.activity_level,
+                "goal": request.goal,
                 "preferences": {
                 "diet_type": "high protein",
                 "restrictions": user["dietary_restrictions"],
-                "meals_per_day": 3
+                "meals_per_day": request.meals_per_day
                 }
             }
         }
@@ -164,7 +168,7 @@ def generate_meal_plan(username: str, goal: str, ):
 
 
 
-    return {"message": "Meal plan generated successfully"}
+    return {"message": "Successful"}
 
 
 

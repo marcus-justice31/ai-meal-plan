@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const MealPlanGenerator = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { username } = location.state;
     const [activity_level, setActivity_level] = useState('');
     const [goal, setGoal] = useState('');
     
 const handleMealGeneration = async (e) => {
-    // e.preventDefault();
-    // try {
-    //     const response = await axios.post(`http://localhost:8000/user/${username}/generate_meal_plan`)
+    e.preventDefault();
+    try {
+        const response = await axios.post(`http://localhost:8000/user/${username}/generate_meal_plan`, {
+            activity_level,
+            goal
+        })
+        if (response.data.message === "Successful") {
+            alert('Meal plan generated successfully');
+        }
+        else
+            alert('Unable to generate meal plan')
 
-    // } catch (err) {
-    //     alert('Error')
-    // }
+    } catch (err) {
+        alert('Error')
+    }
 
 }
 
