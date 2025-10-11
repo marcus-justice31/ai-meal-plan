@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card'
+
 const Login = () => {
     const navigate = useNavigate();
     const [isLoginMode, setIsLoginMode] = useState(true);
@@ -62,50 +66,94 @@ const handleCreateAccount = async (e) => {
 }
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-            <form onSubmit={isLoginMode ? handleLogin : handleCreateAccount}>
-                <div>
-                <label>Username:</label>
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} required />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-                </div>
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+            <Card style={{ width: '24rem' }} className="p-4 shadow-sm">
+            <h3 className="text-center mb-4">{isLoginMode ? 'Login' : 'Create Account'}</h3>
+            <Form onSubmit={isLoginMode ? handleLogin : handleCreateAccount}>
+                <Form.Group className="mb-3" controlId="formUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control 
+                            type="text" 
+                            value={username} 
+                            onChange={e => setUsername(e.target.value)}
+                            required
+                        />
+                </Form.Group>
 
-                {!isLoginMode && (
-                <>
-                    <div>
-                    <label>Gender:</label>
-                    <input type="text" value={gender} onChange={e => setGender(e.target.value)} required />
-                    </div>
-                    <div>
-                    <label>Birthday:</label>
-                    <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} required />
-                    </div>
-                    <div>
-                    <label>Height (cm):</label>
-                    <input type="number" value={height_cm} onChange={e => setHeight_cm(e.target.value)} required />
-                    </div>
-                    <div>
-                    <label>Weight (kg):</label>
-                    <input type="number" value={weight_kgs} onChange={e => setWeight_kgs(e.target.value)} required />
-                    </div>
-                    <div>
-                    <label>Dietary Restrictions (comma separated):</label>
-                    <input
+                <Form.Group className="mb-3" controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
                         type="text"
-                        value={dietary_restrictions}
-                        onChange={e => setDietary_restrictions(e.target.value)}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required
                     />
-                    </div>
+                </Form.Group>
+
+                {!isLoginMode && ( // need to create a dropdown menu for gender
+                <>
+                    <Form.Group className="mb-3" controlId="formGender">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={gender}
+                            onChange={e => setGender(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBirthday">
+                        <Form.Label>Birthday</Form.Label>
+                        <Form.Control
+                            type="date"
+                            value={birthday}
+                            onChange={e => setBirthday(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formHeight">
+                        <Form.Label>Height (cm)</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={height_cm}
+                            onChange={e => setHeight_cm(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formWeight">
+                        <Form.Label>Weight (kg)</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={weight_kgs}
+                            onChange={e => setWeight_kgs(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formRestrictions">
+                        <Form.Label>Dietary Restrictions (comma separated)</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={dietary_restrictions}
+                            onChange={e => setDietary_restrictions(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" className="w-100">
+                        {isLoginMode ? 'Log In' : 'Create Account'}
+                    </Button>
                 </>
                 )}
-                <button type="submit">{isLoginMode ? 'Log In' : 'Create Account'}</button>
-            </form>
-            <button onClick={() => setIsLoginMode(!isLoginMode)} style={{ marginTop: '10px' }}>
-                {isLoginMode ? 'Create Account' : 'Back to Login'}
-            </button>
+            </Form>
+            <Button
+                    variant="link"
+                    onClick={() => setIsLoginMode(!isLoginMode)}
+                    className="w-100 mt-3"
+                >
+                    {isLoginMode ? 'Create Account' : 'Back to Login'}
+            </Button>
+            </Card>
         </div>
     );
 };

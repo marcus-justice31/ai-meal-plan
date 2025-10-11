@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
 import MealPlanGenerator from './Components/MealPlanGenerator';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
