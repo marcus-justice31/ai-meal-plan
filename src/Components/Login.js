@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card'
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Login = () => {
     const [gender, setGender] = useState('');
     const [birthday, setBirthday] = useState('');
     const [height_cm, setHeight_cm] = useState('');
-    const [weight_kgs, setWeight_kgs] = useState('');
+    const [weight_kg, setWeight_kg] = useState('');
     const [dietary_restrictions, setDietary_restrictions] = useState('');
     const [error, setError] = useState(null);
 
@@ -51,11 +52,12 @@ const handleCreateAccount = async (e) => {
             gender,
             birthday: birthdayString,
             height_cm: parseInt(height_cm),
-            weight_kg: parseInt(weight_kgs),
+            weight_kg: parseInt(weight_kg),
             dietary_restrictions: dietary_restrictions.split(',').map(d => d.trim())
         });
         if (response.data.message === "Successful") {
             alert('New user created')
+            setIsLoginMode(true);
         }
         else {
             alert('Failed to create user')
@@ -94,12 +96,19 @@ const handleCreateAccount = async (e) => {
                 <>
                     <Form.Group className="mb-3" controlId="formGender">
                         <Form.Label>Gender</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={gender}
-                            onChange={e => setGender(e.target.value)}
-                            required
-                        />
+
+                        <Dropdown onSelect={(eventKey) => setGender(eventKey)}>
+                            <Dropdown.Toggle variant="secondary" id="dropdown-gender">
+                            {gender ? gender : 'Select Gender'}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                            <Dropdown.Item eventKey="Male">Male</Dropdown.Item>
+                            <Dropdown.Item eventKey="Female">Female</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+                        <Form.Control type="hidden" value={gender} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBirthday">
@@ -126,8 +135,8 @@ const handleCreateAccount = async (e) => {
                         <Form.Label>Weight (kg)</Form.Label>
                         <Form.Control
                             type="number"
-                            value={weight_kgs}
-                            onChange={e => setWeight_kgs(e.target.value)}
+                            value={weight_kg}
+                            onChange={e => setWeight_kg(e.target.value)}
                             required
                         />
                     </Form.Group>
@@ -141,9 +150,14 @@ const handleCreateAccount = async (e) => {
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="w-100">
-                        {isLoginMode ? 'Log In' : 'Create Account'}
+                        Create Account
                     </Button>
                 </>
+                )}
+                {isLoginMode && (
+                    <Button variant="primary" type="submit" className="w-100">
+                    Login
+                    </Button>
                 )}
             </Form>
             <Button
