@@ -183,7 +183,17 @@ def generate_meal_plan(username: str, request: MealPlanRequest):
 
     return {"message": "Successful"}
 
+@app.get("/user/{username}/meal_plan")
+def get_meal_plan(username: str):
+    meal_doc = meals_collection.find_one(
+        {"username": username},
+        sort=[("creation_date", -1)]  # sort by descending (last created)
+    )
 
+    if meal_doc:
+        return {"meal_plan": meal_doc["meal_plan"]}
+    else:
+        raise HTTPException(status_code=404, detail="No meal plan found for this user")
 
 # # Create new user
 # new_user = User(username="username", password="password", gender="male", birthday="2003-1-31", height_cm=175, weight_kg=75, dietary_restrictions=['none'])

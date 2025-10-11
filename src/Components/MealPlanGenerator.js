@@ -11,6 +11,9 @@ const MealPlanGenerator = () => {
     const [activity_level, setActivity_level] = useState('');
     const [goal, setGoal] = useState('');
     const [loading, setLoading] = useState(false);
+
+
+    const quote = "Cooking up your personalized nutrition plan...";
     
 const handleMealGeneration = async (e) => {
     e.preventDefault();
@@ -22,7 +25,8 @@ const handleMealGeneration = async (e) => {
         })
         if (response.data.message === "Successful") {
             alert('Meal plan generated successfully');
-            setLoading(false)
+            setLoading(false);
+            navigate('/mealPlanResults', { state: { username } });
         }
         else
             alert('Unable to generate meal plan')
@@ -35,7 +39,12 @@ const handleMealGeneration = async (e) => {
 
     return (
         <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-            {loading ? <Spinner animation="border" /> :
+            {loading ? (
+                <div className="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+                    <Spinner animation="border" variant="primary" />
+                    <p className="mt-3 fs-5 text-muted">{quote}</p>
+                </div>
+            ) :
                 <form onSubmit = {handleMealGeneration}>
                     <div>
                     <label>Activity Level:</label>
