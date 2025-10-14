@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import { Card, Form, Container, Button } from 'react-bootstrap';
 
 const MealPlanGenerator = () => {
     const navigate = useNavigate();
@@ -38,28 +39,58 @@ const handleMealGeneration = async (e) => {
 }
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
             {loading ? (
-                <div className="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
-                    <Spinner animation="border" variant="primary" />
-                    <p className="mt-3 fs-5 text-muted">{quote}</p>
+                <div className="text-center">
+                    <Spinner animation="border" variant="primary" style={{ width: '4rem', height: '4rem' }} />
+                    <p className="mt-4 fs-5 text-muted">{quote}</p>
                 </div>
             ) :
-                <form onSubmit = {handleMealGeneration}>
-                    <div>
-                    <label>Activity Level:</label>
-                    <input type="text" value={activity_level} onChange={e => setActivity_level(e.target.value)} required />
+            <Card className="p-4" style={{ width: '100%', maxWidth: '450px', borderRadius: '1rem' }}>
+                <Card.Body>
+                    <Card.Title className="text-center mb-4 fs-4 fw-bold text-primary">
+                    Generate Your Meal Plan
+                    </Card.Title>
+                    <Form onSubmit = {handleMealGeneration}>
+                        <Form.Group className="mb-3" controlId="formActivityLevel"></Form.Group>
+                        <Form.Label>Activity Level:</Form.Label>
+                        <Form.Control 
+                                type="text" 
+                                value={activity_level} 
+                                onChange={e => setActivity_level(e.target.value)}
+                                required
+                        />
+                        <Form.Label>Goal:</Form.Label>
+                        <Form.Control 
+                                type="text" 
+                                value={goal} 
+                                onChange={e => setGoal(e.target.value)}
+                                required
+                                className="mb-3"
+                        />
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            className="w-100 fw-semibold"
+                            style={{ borderRadius: '8px' }}
+                        >
+                            Generate Meal Plan
+                        </Button>
+                    </Form>
+                    <div className="text-center mt-3">
+                        <Button
+                            variant="link"
+                            className="text-secondary"
+                            onClick={() => navigate('/dashboard', { state: { username } })}
+                        >
+                            Back to Dashboard
+                        </Button>
                     </div>
-                    <div>
-                    <label>Goal:</label>
-                    <input type="text" value={goal} onChange={e => setGoal(e.target.value)} required />
-                    </div>
-                    <button type="submit">{'Generate Meal Plan'}</button>
-                </form>
+                </Card.Body>
+            </Card>
             }
-        </div>
-         
+        </Container> 
     );    
-}
+};
 
 export default MealPlanGenerator;
