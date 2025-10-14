@@ -31,10 +31,10 @@ const handleLogin = async (e) => {
         if (response.data.Login === "Successful") {
             setError(null);
             alert('Login successful!');
-            navigate('/mealPlanGenerator',  { state: { username } });
+            navigate('/dashboard',  { state: { username } });
         }
     } catch (err) {
-        // Handle error from FastAPI (invalid credentials)
+        // Handle error from FastAPI
         setError('Invalid credentials');
         alert('Invalid credentials');
     }

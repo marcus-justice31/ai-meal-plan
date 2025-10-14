@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { Card, Table } from 'react-bootstrap';
+
+import { Card, Table, Button } from 'react-bootstrap';
 
 const MealPlanResults = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { username } = location.state;
     const [mealPlan, setMealPlan] = useState(null);
@@ -11,7 +14,7 @@ const MealPlanResults = () => {
     useEffect(() => {
         const fetchMealPlan = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/user/${username}/meal_plan`);
+                const res = await axios.get(`http://localhost:8000/user/${username}/new_meal_plan`);
                 setMealPlan(JSON.parse(res.data.meal_plan)); 
             } catch (err) {
                 console.error('Error fetching meal plan:', err);
@@ -28,7 +31,12 @@ const MealPlanResults = () => {
 
 return (
     <div className="container my-4">
-        <h2 className="text-center mb-4">Your Weekly Meal Plan</h2>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="mb-0">Your Weekly Meal Plan</h2>
+            <Button variant="primary" onClick={() => navigate('/dashboard',  { state: { username } })}>
+                Back to Dashboard
+            </Button>
+        </div>
 
         <Card className="mb-4 shadow-sm">
         <Card.Body>

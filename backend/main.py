@@ -118,6 +118,7 @@ def createUser(new_user: User = Body(...)): # expects the data in the request bo
     
     return {"message": "Successful"}
 
+#-------- Meal Plan APIs --------#
 @app.post("/user/{username}/generate_meal_plan")
 def generate_meal_plan(username: str, request: MealPlanRequest):
     user = user_collection.find_one({"username": username})
@@ -183,8 +184,8 @@ def generate_meal_plan(username: str, request: MealPlanRequest):
 
     return {"message": "Successful"}
 
-@app.get("/user/{username}/meal_plan")
-def get_meal_plan(username: str):
+@app.get("/user/{username}/new_meal_plan")
+def get_new_meal_plan(username: str):
     meal_doc = meals_collection.find_one(
         {"username": username},
         sort=[("creation_date", -1)]  # sort by descending (last created)
@@ -194,6 +195,23 @@ def get_meal_plan(username: str):
         return {"meal_plan": meal_doc["meal_plan"]}
     else:
         raise HTTPException(status_code=404, detail="No meal plan found for this user")
+    
+@app.get("/user/{username}/meal_plans")
+def get_meal_plans(username: str):
+    meal_doc = list(meals_collection.find(
+        {"username": username},
+        sort=[("creation_date", -1)]
+    ))
+    if not meal_doc:
+        raise HTTPException(status_code=404, detail="No meal plans found for this user")
+    
+    return [
+        {
+            "creation_date": meal["creation_date"].strftime("%Y-%m-%d %H:%M:%S"),
+            "meal_plan": meal["meal_plan"]
+        }
+        for meal in meal_doc
+    ]
 
 # # Create new user
 # new_user = User(username="username", password="password", gender="male", birthday="2003-1-31", height_cm=175, weight_kg=75, dietary_restrictions=['none'])
