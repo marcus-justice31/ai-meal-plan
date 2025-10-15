@@ -9,21 +9,27 @@ const Dashboard = () => {
     const [mealPlans, setMealPlans] = useState([]);
     const navigate = useNavigate();
 
-useEffect(() => {
-const fetchMealPlans = async () => {
-    try {
-        const res = await axios.get(`http://localhost:8000/user/${username}/meal_plans`);
-        setMealPlans(res.data);
-    } catch (err) {
-        console.error('Error fetching meal plans:', err);
+    useEffect(() => {
+        if (!username) {
+            alert('Your session has expired. Please log in again.');
+            navigate('/login');
+            return; 
         }
-    };
-        fetchMealPlans();
-}, [username]);
 
-const handleViewMealPlan = (mealPlan) => {
-    navigate('/mealPlanResults', { state: { username, mealPlanJson: mealPlan.meal_plan } });
-};
+    const fetchMealPlans = async () => {
+        try {
+            const res = await axios.get(`http://localhost:8000/user/${username}/meal_plans`);
+            setMealPlans(res.data);
+        } catch (err) {
+            console.error('Error fetching meal plans:', err);
+            }
+        };
+            fetchMealPlans();
+    }, [username, navigate]);
+
+    const handleViewMealPlan = (mealPlan) => {
+        navigate('/mealPlanResults', { state: { username, mealPlanJson: mealPlan.meal_plan } });
+    };
 
 return (
     <div className="container my-4">

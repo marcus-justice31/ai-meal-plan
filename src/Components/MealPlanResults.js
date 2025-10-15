@@ -12,6 +12,11 @@ const MealPlanResults = () => {
     const [mealPlan, setMealPlan] = useState(null);
 
     useEffect(() => {
+        if (!username) {
+            alert('Your session has expired. Please log in again.');
+            navigate('/login');
+            return; 
+        }
         const fetchMealPlan = async () => {
             try {
                 const res = await axios.get(`http://localhost:8000/user/${username}/new_meal_plan`);
@@ -21,7 +26,7 @@ const MealPlanResults = () => {
             }
         };
         fetchMealPlan();
-    }, [username]);
+    }, [username, navigate]);
 
     if (!mealPlan) {
     return <p className="text-center mt-5">Loading meal plan...</p>;

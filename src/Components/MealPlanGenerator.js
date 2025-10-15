@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -15,28 +15,37 @@ const MealPlanGenerator = () => {
 
 
     const quote = "Cooking up your personalized nutrition plan...";
-    
-const handleMealGeneration = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-    try {
-        const response = await axios.post(`http://localhost:8000/user/${username}/generate_meal_plan`, {
-            activity_level,
-            goal
-        })
-        if (response.data.message === "Successful") {
-            alert('Meal plan generated successfully');
-            setLoading(false);
-            navigate('/mealPlanResults', { state: { username } });
+
+    useEffect(() => {
+        if (!username) {
+            alert('Your session has expired. Please log in again.');
+            navigate('/login');
+            return; 
         }
-        else
-            alert('Unable to generate meal plan')
+    
+    }, [username, navigate]);
+    
+    const handleMealGeneration = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+        try {
+            const response = await axios.post(`http://localhost:8000/user/${username}/generate_meal_plan`, {
+                activity_level,
+                goal
+            })
+            if (response.data.message === "Successful") {
+                alert('Meal plan generated successfully');
+                setLoading(false);
+                navigate('/mealPlanResults', { state: { username } });
+            }
+            else
+                alert('Unable to generate meal plan')
 
-    } catch (err) {
-        alert('Error')
+        } catch (err) {
+            alert('Error')
+        }
+
     }
-
-}
 
     return (
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
