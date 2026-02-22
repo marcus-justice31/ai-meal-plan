@@ -53,6 +53,8 @@ return (
                 <tr>
                     <th>#</th>
                     <th>Date Created</th>
+                    <th>Goal</th>
+                    <th>Activity Level</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -62,6 +64,8 @@ return (
                     <tr key={plan.id}>
                         <td>{index + 1}</td>
                         <td>{plan.creation_date}</td>
+                        <td>{plan.goal}</td>
+                        <td>{plan.activity_level}</td>
                         <td>
                             <Button
                                 variant="primary"

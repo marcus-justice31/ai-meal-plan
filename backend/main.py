@@ -36,6 +36,8 @@ class User(BaseModel):
 #------ Meals Model ------#
 class Meals(BaseModel):
     username: str
+    activity_level: str
+    goal: str
     meal_plan: str
     creation_date: datetime = Field(default_factory=datetime.now)
     
@@ -84,9 +86,11 @@ def calculateBMI(username: str):
     else:
         raise HTTPException(status_code=404, detail="User not found")
     
-def saveMealPlanToDB(username: str, api_response: str):
+def saveMealPlanToDB(username: str, activity_level:str, goal:str, api_response: str):
     meal = Meals(
             username=username, 
+            activity_level=activity_level,
+            goal=goal,
             meal_plan=api_response,
             creation_date=datetime.now()    
         )
@@ -175,7 +179,7 @@ def generate_meal_plan(username: str, request: MealPlanRequest):
             input=str(prompt_input)
         )
 
-        saveMealPlanToDB(username, response.output_text)
+        saveMealPlanToDB(username, request.activity_level, request.goal, response.output_text)
 
     else:
         raise HTTPException(status_code=404, detail="User not found")
@@ -208,7 +212,10 @@ def get_meal_plans(username: str):
     return [
         {
             "creation_date": meal["creation_date"].strftime("%Y-%m-%d %H:%M:%S"),
-            "meal_plan": meal["meal_plan"]
+            "meal_plan": meal["meal_plan"],
+            "activity_level": meal.get("activity_level", "N/A"),
+            "goal": meal.get("goal", "N/A")
+
         }
         for meal in meal_doc
     ]
