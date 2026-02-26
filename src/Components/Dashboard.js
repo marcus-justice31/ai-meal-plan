@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Card, Button } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
+import '../Styles/Dashboard.css';
 
 const Dashboard = () => {
     const location = useLocation();
@@ -32,58 +33,75 @@ const Dashboard = () => {
     };
 
 return (
-    <div className="container my-4">
-    <Card className="shadow-sm">
-        <Card.Header className="d-flex justify-content-between align-items-center">
-            <h4 className="mb-0">Your Meal Plan Dashboard</h4>
-            <Button
-                variant="success"
-                onClick={() => navigate('/mealPlanGenerator', { state: { username } })}
-            >
-            + Generate New Plan
-            </Button>
-        </Card.Header>
+    <div className="dashboard-wrapper">
 
-        <Card.Body>
-            {mealPlans.length === 0 ? (
-                <p className="text-center text-muted">No meal plans found.</p>
-            ) : (
-            <Table striped bordered hover responsive>
-                <thead className="table-primary">
-                <tr>
-                    <th>#</th>
-                    <th>Date Created</th>
-                    <th>Goal</th>
-                    <th>Activity Level</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
+        {/* Top Navbar */}
+        <div className="top-navbar">
+            <div className="brand">AI MEAL PERFORMANCE</div>
+            <div className="nav-right">
+                <span className="user-name">{username}</span>
+                <div className="avatar-circle">MU</div>
+            </div>
+        </div>
 
-                <tbody>
-                    {mealPlans.map((plan, index) => (
-                    <tr key={plan.id}>
-                        <td>{index + 1}</td>
-                        <td>{plan.creation_date}</td>
-                        <td>{plan.goal}</td>
-                        <td>{plan.activity_level}</td>
-                        <td>
-                            <Button
-                                variant="primary"
-                                size="sm"
-                                onClick={() => handleViewMealPlan(plan)}
-                            >
-                            View Plan
-                            </Button>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-            </Table>
-            )}
-        </Card.Body>
-    </Card>
+        <div className="dashboard-body">
+
+            {/* Sidebar */}
+            <div className="sidebar">
+                <div className="sidebar-item active">Dashboard</div>
+                <div className="sidebar-item">My Plans</div>
+                <div className="sidebar-item">Progress</div>
+                <div className="sidebar-item">Macros</div>
+                <div className="sidebar-item">Settings</div>
+            </div>
+
+            {/* Main Content */}
+            <div className="dashboard-content">
+                
+                <div className="dashboard-header">
+                    <h4 className="dashboard-title">
+                        Meal Plans Overview
+                    </h4>
+
+                    <Button
+                        className="generate-btn"
+                        onClick={() => navigate('/mealPlanGenerator', { state: { username } })
+                        }
+                    >
+                        + Create New Plan
+                    </Button>
+                </div>
+
+                {mealPlans.length === 0 ? (
+                    <div className="empty-state">
+                        No meal plans found.
+                    </div>
+                ) : (
+                    mealPlans.map((plan) => (
+                        <div key={plan.id} className="plan-card">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <div className="plan-info">
+                                    <h6>{plan.goal.toUpperCase()}</h6>
+                                    <p>
+                                        {plan.activity_level} • {plan.creation_date}
+                                    </p>
+                                </div>
+
+                                <Button
+                                    className="view-btn"
+                                    size="sm"
+                                    onClick={() => handleViewMealPlan(plan)}
+                                >
+                                    VIEW PLAN
+                                </Button>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+        </div>
     </div>
-    );
+);
 };
 
 export default Dashboard;
